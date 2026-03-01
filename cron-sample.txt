@@ -1,0 +1,1 @@
+*/2 * * * * ubuntu sh /home/ubuntu/bash/hello.sh >> /home/ubuntu/bash/tmp/logs.txt

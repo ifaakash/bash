@@ -1,0 +1,16 @@
+#-----------------------------------------
+Hello, my friend! I am a Linux Moo
+The exit code for above command is 0
+#-----------------------------------------
+#-----------------------------------------
+Hello, my friend! I am a Linux Moo
+The exit code for above command is 0
+#-----------------------------------------
+#-----------------------------------------
+Hello, my friend! I am a Linux Moo
+The exit code for above command is 0
+#-----------------------------------------
+#-----------------------------------------
+Hello, my friend! I am a Linux Moo
+The exit code for above command is 0
+#-----------------------------------------
