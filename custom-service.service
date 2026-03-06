@@ -1,0 +1,18 @@
+[Unit]
+Description=My Custom Bash Script
+After=network.target
+# The service can start a maximum of 3 times...
+StartLimitBurst=3
+# ...within a 60-second window.
+StartLimitIntervalSec=60
+
+[Service]
+Type=simple
+ExecStart=/home/ubuntu/bash/systemctl-counter.sh
+# Tell systemd to restart the service if it crashes
+Restart=on-failure
+# Wait 5 seconds before attempting the restart
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
