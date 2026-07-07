@@ -13,3 +13,10 @@ printf "–––––––––– Updating ASG desired capacity –––�
 aws autoscaling update-auto-scaling-group \
   --auto-scaling-group-name $asg_name \
   --desired-capacity $desired_count
+
+
+# aws autoscaling update-auto-scaling-group \
+#   --auto-scaling-group-name my-asg \
+#   --min-size 2 \
+#   --max-size 5 \
+#   --desired-capacity 3
