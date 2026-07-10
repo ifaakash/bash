@@ -1,5 +1,10 @@
 #!/bin/bash
 
+printf "Listing all ASG within the current AWS account and region"
+aws autoscaling describe-auto-scaling-groups \
+  --query 'AutoScalingGroups[].AutoScalingGroupName' \
+  --output table
+
 printf 'Enter AWS Region\n'
 read region
 
