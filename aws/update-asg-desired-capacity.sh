@@ -1,3 +1,6 @@
 #!/bin/bash
 
-read -p "----------- Enter AWS Region –-----------" region 
+printf 'Enter AWS Region\n'
+read region
+
+ 
