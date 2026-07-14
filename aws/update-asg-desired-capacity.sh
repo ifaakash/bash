@@ -1,13 +1,14 @@
 #!/bin/bash
 
-printf "Listing all ASG within the current AWS account and region"
+printf "Listing all ASG within the current AWS account and region\n"
 aws autoscaling describe-auto-scaling-groups \
   --query 'AutoScalingGroups[].AutoScalingGroupName' \
   --output table
 
-printf "Want to update the ASG desired count?"
+printf "Want to update the ASG desired count?\n"
 while true; do
-    read -p "Enter Y to continue: " choice
+    printf "Enter Y to continue:\n"
+    read choice
     if [ "$choice" == 'Y' ]; then
 		printf 'Enter AWS Region\n'
 		read region
@@ -22,9 +23,8 @@ while true; do
 		aws autoscaling update-auto-scaling-group \
 		  --auto-scaling-group-name $asg_name \
 		  --desired-capacity $desired_count
-     fi
-     else
-       break
+     else 
+        break
      fi
 done
 
