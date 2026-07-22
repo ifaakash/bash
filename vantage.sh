@@ -17,7 +17,13 @@ if [ $? -eq 0 ]; then
    printf "Curl passed!\n"
    printf ""
    instanceType=$(echo "$curlResult" | jq -r '.instance_type')
+   vCPU=$(echo "$curlResult" | jq -r '.vCPU')
+   memory=$(echo "$curlResult" | jq -r '.memory')
+   enis=$(echo "$curlResult" | jq -r '.vpc')
    echo $instanceType
+   echo $vCPU
+   echo $memory
+   echo $enis
    
 else
    printf "Curl failed!"
