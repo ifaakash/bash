@@ -4,13 +4,13 @@ printf "Choose T/M for balanced workloads, C for CPU-heavy work, R/X for memory-
 
 printf "Select the instance class ( only t3 family is supported ):\n"
 # T3 family
-alist= ["t3.nano", "t3.micro", "t3.small", "t3.medium", "t3.large", "t3.xlarge", "t3.2xlarge"]
+alist=("t3.nano", "t3.micro", "t3.small", "t3.medium", "t3.large", "t3.xlarge", "t3.2xlarge")
 aInstanceClass=$(gum choose alist)
 
 # get instance class
 agetInstanceEndpoint="/api/v1/instances/ec2/"
-# use gum to scroll over the instance class
 
-printf "Curling the endpoint for /api/v1/instances/{service}/{instanceType}/global\n"
+printf "Curling endpoint ${aInstanceClass}/${agetInstanceEndpoint}/global"
 
-if /api/v1/instances/{service}/{instanceType}/global
+
+# if /api/v1/instances/{service}/{instanceType}/global
