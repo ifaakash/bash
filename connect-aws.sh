@@ -18,4 +18,4 @@ else
    fi
 fi
 
-printf "–––––––––-  –––––––––––\n"
+printf "–––––––––- LISTING EC2 Instances  –––––––––––\n"
