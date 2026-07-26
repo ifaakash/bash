@@ -16,6 +16,9 @@ curlResult=$(curl -s -f "$targetUrl")
 if [ $? -eq 0 ]; then
    printf "Curl passed!\n"
    printf ""
+   instanceType=$(echo "$curlResult" | jq -r '.instance_type')
+   echo $instanceType
+   
 else
    printf "Curl failed!"
 fi
