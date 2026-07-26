@@ -1,20 +1,12 @@
 #!/bin/bash
 
-SSH_DIRECTORY="$HOME/.ssh"
+SSM_HOME_DIRECTORY="$HOME/.aws/config"
+printf "–––––––––- List AWS profiles in SSM  –––––––––––\n"
+profiles=$(grep '^\[.*\]$' $SSM_HOME_DIRECTORY | tr -d '[]')
 
-printf "–––––––––- Listing SSH directory for all keys –––––––––––\n"
-list=$(ls $SSH_DIRECTORY)
+printf "Listing AWS Profiles:" $profiles
 
-printf "Choose the ssh key to add:\n"
-key_name=$(gum choose $list)
+printf "–––––––––-  –––––––––––\n"
 
-if [ $key_name == '']; then
-  printf "––––––––– EXITING - no key selected –––––––––"
-  break
-else
-	printf "Initialising new ssh agent\n"
-	eval "ssh-agent -s"
-	 
-	printf "Adding ssh key $key_name"
-	ssh-add $SSH_DIRECTORY/$key_name
-fi
+
+
