@@ -14,6 +14,11 @@ selectedInstance=$(aws ec2 describe-instances \
     | gum filter --header "Choose an EC2 instance:" \
     | awk '{print $1}')
 
-printf "Selected instance: %s\n" "$selectedInstance"
-printf "Starting SSM session to instance $selectedInstance"
-aws ssm start-session --target $selectedInstance --region $region --profile particle
+# printf "Selected instance: %s\n" "$selectedInstance"
+printf "Starting SSM session to instance $selectedInstance\n"
+# aws ssm start-session --target $selectedInstance --region $region --profile particle
+
+
+aws ec2 describe-instances \
+  --region ap-south-1 \
+  --filters 'Name=instance-state-name,Values=running' --query 'Reservations[].Instances[].{ID:InstanceId,Name:Tags[?Key==`Name`]|[0].Value}' --output table --profile particle
