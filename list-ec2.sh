@@ -8,11 +8,12 @@ region=$(gum choose ${availableRegion[@]})
 printf "Setting $region as default region for all AWS commands for this session\n"
 
 # export "AWS_REGION"=$region
-selected_instance=$(aws ec2 describe-instances \
+selectedInstance=$(aws ec2 describe-instances \
     --query 'Reservations[].Instances[].[InstanceId, Tags[?Key==`Name`]|[0].Value]' \
     --region "$region" --profile particle --output text \
     | gum filter --header "Choose an EC2 instance:" \
     | awk '{print $1}')
 
-printf "Selected instance: %s\n" "$selected_instance"
-
+printf "Selected instance: %s\n" "$selectedInstance"
+printf "Starting SSM session to instance $selectedInstance"
+aws ssm start-session --target $selectedInstance --region $region --profile particle
