@@ -2,6 +2,8 @@
 
 printf "–––––––––- LISTING EC2 Instances  –––––––––––\n"
 availableRegion=("us-east-1" "us-east-2")
+printf "Setup the required environment variables..."
+./env.sh
 region=$(gum choose ${availableRegion[@]})
 printf "Setting $region as default region for all AWS commands for this session\n"
 
