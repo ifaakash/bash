@@ -20,7 +20,8 @@ if [ $? -eq 0 ]; then
    vCPU=$(echo "$curlResult" | jq -r '.vCPU')
    memory=$(echo "$curlResult" | jq -r '.memory')
    enis=$(echo "$curlResult" | jq -r '.vpc.max_enis')
-   printf "Instance type $instanceType has $vCPU vCPU and $memory GB memory; contains $enis eni\'s"
+   enis_ip=$(echo "$curlResult" | jq -r '.vpc.ips_per_eni')
+   printf "Instance type $instanceType has $vCPU vCPU and $memory GB memory; contain maximum $enis eni\'s with maximum of $enis_ip ip per eni\n"
    #echo $vCPU
    #echo $memory
    #echo $enis
