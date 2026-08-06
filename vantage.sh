@@ -19,6 +19,8 @@ if [ $? -eq 0 ]; then
    region=$(gum choose $(echo "$curlResult" | jq -r '.pricing | keys[]'))
 #   echo $curlResult > curlResult.json
    vCPU=$(echo "$curlResult" | jq -r '.vCPU')
+   arch=$(echo "$curlResult" | jq -r '.arch[0]')
+   networkPerformance=$(echo $curlResult | jq -r ".network_performance")
    memory=$(echo "$curlResult" | jq -r '.memory')
    enis=$(echo "$curlResult" | jq -r '.vpc.max_enis')
    enis_ip=$(echo "$curlResult" | jq -r '.vpc.ips_per_eni')
@@ -37,6 +39,8 @@ Instance Type,$instanceType
 Region,$region
 vCPUs,$vCPU
 Memory,$memory GB
+Architecture,$arch
+Network Performance,$networkPerformance
 Max ENIs,$enis
 IPs per ENI,$enis_ip
 Hourly Cost (On-Demand),\$$pricing_onDemand
