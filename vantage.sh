@@ -10,12 +10,11 @@ instanceClass=$(gum choose ${list[@]})
 # get instance class
 getInstanceEndpoint="api/v1/instances/ec2"
 targetUrl="${baseEndpoint}/${getInstanceEndpoint}/${instanceClass}/global"
-printf "Curling endpoint ${targetUrl}"
+printf "Curling endpoint ${targetUrl}\n"
 curlResult=$(curl -s -f "$targetUrl")
 
 if [ $? -eq 0 ]; then
    printf "Curl passed!\n"
-   printf ""
    instanceType=$(echo "$curlResult" | jq -r '.instance_type')
    vCPU=$(echo "$curlResult" | jq -r '.vCPU')
    memory=$(echo "$curlResult" | jq -r '.memory')
@@ -24,7 +23,6 @@ if [ $? -eq 0 ]; then
    echo $vCPU
    echo $memory
    echo $enis
-   
 else
    printf "Curl failed!"
 fi
