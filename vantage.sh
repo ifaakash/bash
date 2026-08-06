@@ -16,7 +16,7 @@ curlResult=$(curl -s -f "$targetUrl")
 if [ $? -eq 0 ]; then
    printf "Curl passed!\n"
    instanceType=$(echo "$curlResult" | jq -r '.instance_type')
-   region=$(gum choose $(echo "$curlResult" | jq -r '.pricing | keys[]'))
+   region=$(gum filter $(echo "$curlResult" | jq -r '.pricing | keys[]'))
 #   echo $curlResult > curlResult.json
    vCPU=$(echo "$curlResult" | jq -r '.vCPU')
    arch=$(echo "$curlResult" | jq -r '.arch[0]')
