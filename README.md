@@ -3,7 +3,13 @@
 brew install gum
 ```
 
-# Ouptut of script
+# Gum Commands Used
+
+- **`gum choose`**: Prompts the user to select from a predefined list (used for selecting the instance class).
+- **`gum filter`**: Provides an interactive, type-to-search (fuzzy matching) list selector (used for choosing AWS regions).
+- **`gum table`**: Renders structured data beautifully as an ASCII table in the terminal (used to present the final specifications).
+
+# Output of script
 
 ```bash
 ╭────────────────────────────┬─────────────────╮
