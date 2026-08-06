@@ -16,11 +16,14 @@ curlResult=$(curl -s -f "$targetUrl")
 if [ $? -eq 0 ]; then
    printf "Curl passed!\n"
    instanceType=$(echo "$curlResult" | jq -r '.instance_type')
+   region=$(gum choose $(echo "$curlResult" | jq -r '.pricing | keys[]'))
 #   echo $curlResult > curlResult.json
    vCPU=$(echo "$curlResult" | jq -r '.vCPU')
    memory=$(echo "$curlResult" | jq -r '.memory')
    enis=$(echo "$curlResult" | jq -r '.vpc.max_enis')
    enis_ip=$(echo "$curlResult" | jq -r '.vpc.ips_per_eni')
+   pricing_onDemand=$(echo "$curlResult" | jq -r --arg region "$region" '.pricing.[$region].linux.ondemand')
+   printf "Pricing[on-demand] is $pricing_onDemand $ per hour"
    printf "Instance type $instanceType has $vCPU vCPU and $memory GB memory; contain maximum $enis eni\'s with maximum of $enis_ip ip per eni\n"
    #echo $vCPU
    #echo $memory
