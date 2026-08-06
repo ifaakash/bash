@@ -22,12 +22,26 @@ if [ $? -eq 0 ]; then
    memory=$(echo "$curlResult" | jq -r '.memory')
    enis=$(echo "$curlResult" | jq -r '.vpc.max_enis')
    enis_ip=$(echo "$curlResult" | jq -r '.vpc.ips_per_eni')
-   pricing_onDemand=$(echo "$curlResult" | jq -r --arg region "$region" '.pricing.[$region].linux.ondemand')
-   printf "Pricing[on-demand] is $pricing_onDemand $ per hour"
-   printf "Instance type $instanceType has $vCPU vCPU and $memory GB memory; contain maximum $enis eni\'s with maximum of $enis_ip ip per eni\n"
-   #echo $vCPU
-   #echo $memory
-   #echo $enis
+   pricing_onDemand=$(echo "$curlResult" | jq -r --arg region "$region" '.pricing[$region].linux.ondemand')
+
+   if [ "$pricing_onDemand" = "null" ] || [ -z "$pricing_onDemand" ]; then
+      pricing_onDemand="N/A"
+      pricing_monthly="N/A"
+   else
+      pricing_monthly=$(awk -v od="$pricing_onDemand" 'BEGIN { printf "%.2f", od * 730 }')
+   fi
+
+   printf "\n"
+   gum table -p --columns "Metric,Specification" <<EOF
+Instance Type,$instanceType
+Region,$region
+vCPUs,$vCPU
+Memory,$memory GB
+Max ENIs,$enis
+IPs per ENI,$enis_ip
+Hourly Cost (On-Demand),\$$pricing_onDemand
+Monthly Cost (Est. * 730h),\$$pricing_monthly
+EOF
 else
    printf "Curl failed!"
 fi
