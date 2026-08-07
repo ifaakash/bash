@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -e
 printf "–––––––––- LISTING EC2 Instances  –––––––––––\n"
 availableRegion=("us-east-1" "us-east-2")
 printf "Setup the required environment variables..."
@@ -10,9 +10,9 @@ gum spin --spinner dot --title "Validating if AWS_REGION is setup in the shell" 
   --show-output \
   -- bash -c '
   if [[ -n "${AWS_PROFILE:-}" ]]; then
-      echo "set"
+      echo "AWS_PROFILE is set"
   else
-      echo "unset"
+      echo "AWS_PROFILE is not set yet! Please set this env variable"
   fi
   '
 # Validate all env variables are configured or not!
