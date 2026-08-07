@@ -45,5 +45,6 @@ fi
 
 
 printf "STARTING SSM SESSION TO THE INSTANCE\n"
+# The start session should only be allowed if the instance is running
 aws ssm start-session --target $selectedInstance --profile $profile \
     --region $region
