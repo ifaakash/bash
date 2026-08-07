@@ -15,6 +15,8 @@ else
    if  ! aws sso login --profile $aselected_profile; then
        printf "Skipping login due to failure"
        continue
+   else
+       printf "Connect to AWS account via $aselected_profile profile"
    fi
 fi
 
