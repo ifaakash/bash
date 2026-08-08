@@ -45,4 +45,5 @@ fi
 
 
 printf "STARTING SSM SESSION TO THE INSTANCE\n"
-aws ssm start-session --target $selectedInstance --profile $profile --region $region
+aws ssm start-session --target $selectedInstance --profile $profile \
+    --region $region
