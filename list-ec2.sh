@@ -17,8 +17,3 @@ selectedInstance=$(aws ec2 describe-instances \
 # printf "Selected instance: %s\n" "$selectedInstance"
 printf "Starting SSM session to instance $selectedInstance\n"
 # aws ssm start-session --target $selectedInstance --region $region --profile particle
-
-
-aws ec2 describe-instances \
-  --region ap-south-1 \
-  --filters 'Name=instance-state-name,Values=running' --query 'Reservations[].Instances[].{ID:InstanceId,Name:Tags[?Key==`Name`]|[0].Value}' --output table --profile particle
