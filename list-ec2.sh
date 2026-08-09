@@ -16,4 +16,6 @@ selectedInstance=$(aws ec2 describe-instances \
 
 # printf "Selected instance: %s\n" "$selectedInstance"
 printf "Starting SSM session to instance $selectedInstance\n"
-# aws ssm start-session --target $selectedInstance --region $region --profile particle
+# Fetch state of instance
+# Provide option to on/off the instance - if on, then off and vice-versa
+#aws ssm start-session --target $selectedInstance --region $region --profile particle
