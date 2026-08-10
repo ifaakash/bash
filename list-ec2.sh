@@ -19,9 +19,22 @@ selectedInstance=$(aws ec2 describe-instances \
 # printf "Starting SSM session to instance $selectedInstance\n"
 gum spin --spinner dot --title  "Checking the status of instance with ID $selectedInstance" -- sleep 5
 
-aws ec2 describe-instances --instance-ids \
+instanceState=$(aws ec2 describe-instances --instance-ids \
    "$selectedInstance" --query "Reservations[*].Instances[*].State.Name" \
-   --output text --profile particle
+   --output text --profile particle)
+
+if [[ "$instanceState" == "stopped" ]]; then
+     printf "Instance is in stopped state! Do you want to start the instance?\n"
+     choice=$(gum choose "Yes" "No")
+     if [[ "$choice" == "Yes" ]]; then
+        printf "Starting instance\n"
+        aws ec2 start-instances --instance-ids $selectedInstance \
+            --region $region --profile particle
+     else
+        printf "Skipping start action\n"
+     fi
+fi
+
 # Fetch state of instance
 # Provide option to on/off the instance - if on, then off and vice-versa
 #aws ssm start-session --target $selectedInstance --region $region --profile particle
