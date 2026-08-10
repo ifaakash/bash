@@ -9,9 +9,9 @@ gum spin --spinner dot --title "–––––––––- Validating if AWS_R
   --show-output \
   -- bash -c '
   if [[ -n "${AWS_PROFILE:-}" ]]; then
-      echo "AWS_PROFILE is set\n"
+      printf "AWS_PROFILE is set\n"
   else
-      echo "AWS_PROFILE is not set yet! Please set this env variable\n"
+      printf "AWS_PROFILE is not set yet! Please set this env variable\n"
   fi
   '
 # Validate all env variables are configured or not!
@@ -50,6 +50,8 @@ if [[ "$instanceState" == "stopped" ]]; then
         printf "STARTING instance\n"
         aws ec2 start-instances --instance-ids $selectedInstance \
             --region $region --profile $profile
+        gum spin --spinner dot --title "Waiting for instance to come up healthy!" -- aws ec2 wait instance-running --instance-ids "$selectedInstance" \
+            --profile $profile --region "$region"
         printf "Instance is RUNNING now!\n"
      else
         printf "Skipping start action\n"
