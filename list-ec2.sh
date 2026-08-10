@@ -39,7 +39,3 @@ if [[ "$instanceState" == "stopped" ]]; then
         printf "Skipping start action\n"
      fi
 fi
-
-# Fetch state of instance
-# Provide option to on/off the instance - if on, then off and vice-versa
-#aws ssm start-session --target $selectedInstance --region $region --profile particle
