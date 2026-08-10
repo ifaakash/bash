@@ -19,7 +19,6 @@ gum spin --spinner dot --title "–––––––––- Validating if AWS_R
 region=$(gum choose ${availableRegion[@]})
 printf "–––––––––- Setting $region as default region –––––––––-\n"
 
-
 # export "AWS_REGION"=$region
 gum spin --spinner dot --title "Fetching instances in $region region" -- sleep 3
 selectedInstance=$(aws ec2 describe-instances \
