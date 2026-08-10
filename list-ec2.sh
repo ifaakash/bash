@@ -2,22 +2,22 @@
 set -e
 printf "–––––––––- LISTING EC2 Instances  –––––––––––\n"
 availableRegion=("us-east-1" "us-east-2")
-printf "–––––––––- Setup the required environment variables –––––––––-"
+printf "–––––––––- Setup the required environment variables –––––––––-\n"
 source .env.sh
 
-gum spin --spinner dot --title "–––––––––- Validating if AWS_REGION is setup in the shell –––––––––-" \
+gum spin --spinner dot --title "–––––––––- Validating if AWS_REGION is setup in the shell –––––––––-\n" \
   --show-output \
   -- bash -c '
   if [[ -n "${AWS_PROFILE:-}" ]]; then
-      echo "AWS_PROFILE is set"
+      echo "AWS_PROFILE is set\n"
   else
-      echo "AWS_PROFILE is not set yet! Please set this env variable"
+      echo "AWS_PROFILE is not set yet! Please set this env variable\n"
   fi
   '
 # Validate all env variables are configured or not!
 # if not; exit the script
 region=$(gum choose ${availableRegion[@]})
-printf "–––––––––- Setting $region as default region for all AWS commands for this session –––––––––-\n"
+printf "–––––––––- Setting $region as default region –––––––––-\n"
 
 
 # export "AWS_REGION"=$region
@@ -35,7 +35,7 @@ selectedInstance=$(aws ec2 describe-instances \
 
 # echo $SPIN_PID
 
-instanceState=$(gum spin --spinner dot --title "Checking the status of instance with ID $selectedInstance" \
+instanceState=$(gum spin --spinner dot --title "Checking the status of instance with ID $selectedInstance\n" \
     -- aws ec2 describe-instances --instance-ids \
    "$selectedInstance" --query "Reservations[*].Instances[*].State.Name" \
    --output text --profile $profile --region $region)
