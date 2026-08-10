@@ -4,6 +4,16 @@ printf "–––––––––- LISTING EC2 Instances  ––––––�
 availableRegion=("us-east-1" "us-east-2")
 printf "Setup the required environment variables..."
 source .env.sh
+
+printf "is this running?"
+gum spin --spinner dot --title "Validating if AWS_REGION is setup in the shell" \
+  -- bash -c '
+  if [[-n "AWS_REGION:-" ]]; then
+      echo "set"
+  else
+      echo "unset"
+  fi
+  '
 # Validate all env variables are configured or not!
 # if not; exit the script
 region=$(gum choose ${availableRegion[@]})
