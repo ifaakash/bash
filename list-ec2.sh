@@ -58,6 +58,7 @@ if [[ "$instanceState" == "stopped" ]]; then
      fi
 fi
 
+printf "Checking if session manager plugin is installed or not?"
 
 printf "STARTING SSM SESSION TO THE INSTANCE\n"
 # The start session should only be allowed if the instance is running
