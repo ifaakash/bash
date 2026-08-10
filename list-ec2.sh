@@ -15,7 +15,10 @@ selectedInstance=$(aws ec2 describe-instances \
     | awk '{print $1}')
 
 # printf "Selected instance: %s\n" "$selectedInstance"
-printf "Starting SSM session to instance $selectedInstance\n"
+# printf "Starting SSM session to instance $selectedInstance\n"
+aws ec2 describe-instances --instance-ids \
+   $selectedInstance --query "Reservations[*].Instances[*].State.Name" \
+   --output text --profile particle
 # Fetch state of instance
 # Provide option to on/off the instance - if on, then off and vice-versa
 #aws ssm start-session --target $selectedInstance --region $region --profile particle
