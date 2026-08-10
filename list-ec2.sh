@@ -17,11 +17,16 @@ selectedInstance=$(aws ec2 describe-instances \
 
 # printf "Selected instance: %s\n" "$selectedInstance"
 # printf "Starting SSM session to instance $selectedInstance\n"
-gum spin --spinner dot --title  "Checking the status of instance with ID $selectedInstance" -- sleep 5
+gum spin --spinner dot --title  "Checking the status of instance with ID $selectedInstance" -- sleep 15 &
+SPIN_PID=$!
 
+# echo $SPIN_PID
 instanceState=$(aws ec2 describe-instances --instance-ids \
    "$selectedInstance" --query "Reservations[*].Instances[*].State.Name" \
    --output text --profile particle)
+
+kill $SPIN_PID 2>/dev/null
+wait $SPIN_PID 2>/dev/null
 
 if [[ "$instanceState" == "stopped" ]]; then
      printf "Instance is in stopped state! Do you want to start the instance?\n"
