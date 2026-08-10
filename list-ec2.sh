@@ -58,9 +58,16 @@ if [[ "$instanceState" == "stopped" ]]; then
      fi
 fi
 
-printf "Checking if session manager plugin is installed or not?"
+printf "Checking if session manager plugin is installed or not?\n"
+session-manager-plugin > /dev/null  2>&1
+if [[ $? -eq 0 ]];then
+   printf "Session manager plugin is installed!\n"
+else 
+   printf "Session manager plugin is not installed!\n"
+fi
 
 printf "STARTING SSM SESSION TO THE INSTANCE\n"
 # The start session should only be allowed if the instance is running
 aws ssm start-session --target $selectedInstance --profile $profile \
     --region $region
+
