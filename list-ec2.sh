@@ -62,7 +62,8 @@ printf "Checking if session manager plugin is installed or not?\n"
 session-manager-plugin > /dev/null  2>&1
 if [[ $? -eq 0 ]];then
    printf "Session manager plugin is installed!\n"
-else 
+else
+   # install if the plugin in not installed
    printf "Session manager plugin is not installed!\n"
 fi
 
