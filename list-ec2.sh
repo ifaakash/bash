@@ -113,6 +113,9 @@ if [[ "$choice" == "Yes" ]]; then
     printf "Stopping the instance %s...\n" "$selectedInstance"
     aws ec2 stop-instances --instance-ids "$selectedInstance" \
         --profile "$profile" --region "$region"
-    printf "Instance stop initiated.\n"
+    gum spin --spinner dot --title "Waiting for instance to stop..." \
+        -- aws ec2 wait instance-stopped --instance-ids "$selectedInstance" \
+        --profile "$profile" --region "$region"
+    printf "Instance has been STOPPED successfully.\n"
 fi
 
