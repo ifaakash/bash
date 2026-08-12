@@ -75,6 +75,7 @@ if [[ "$instanceState" == "stopped" ]]; then
         gum spin --spinner dot --title "Waiting for instance to come up healthy!" \
             -- aws ec2 wait instance-running --instance-ids "$selectedInstance" \
             --profile "$profile" --region "$region"
+        instanceState="running"
         printf "Instance is RUNNING now!\n"
      else
         printf "Skipping start action\n"
@@ -101,5 +102,17 @@ if [[ "$instanceState" == "running" ]]; then
         --region "$region"
 else
     printf "Instance is in %s state. Cannot start SSM session (requires running state).\n" "$instanceState"
+fi
+
+# ------------------------------------------------------------------
+# 9. Prompt user whether to stop the instance after use.
+# ------------------------------------------------------------------
+printf "Do you want to stop the instance?\n"
+choice=$(gum choose "Yes" "No")
+if [[ "$choice" == "Yes" ]]; then
+    printf "Stopping the instance %s...\n" "$selectedInstance"
+    aws ec2 stop-instances --instance-ids "$selectedInstance" \
+        --profile "$profile" --region "$region"
+    printf "Instance stop initiated.\n"
 fi
 
